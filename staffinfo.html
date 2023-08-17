@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>員工資料管理</title>
+  <!-- 引入 Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center">XX股份有限公司</h1>
+    <form class="info mt-4" autocomplete="off">
+      <div class="row mb-3">
+        <label for="uname" class="col-sm-2 col-form-label">姓名：</label>
+        <div class="col">
+          <input type="text" class="form-control uname" id="uname" name="uname">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="age" class="col-sm-2 col-form-label">年齡：</label>
+        <div class="col">
+          <input type="text" class="form-control age" id="age" name="age">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="gender" class="col-sm-2 col-form-label">性別：</label>
+        <div class="col">
+          <select name="gender" class="form-select gender" id="gender">
+            <option value="男">男</option>
+            <option value="女">女</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="salary" class="col-sm-2 col-form-label">薪資：</label>
+        <div class="col">
+          <input type="text" class="form-control salary" id="salary" name="salary">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="city" class="col-sm-2 col-form-label">居住地區：</label>
+        <div class="col">
+          <select name="city" class="form-select city" id="city">
+            <option value="北部">北部</option>
+            <option value="中部">中部</option>
+            <option value="南部">南部</option>
+            <option value="東部">東部</option>
+            <option value="外島">外島</option>
+          </select>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-primary add">新增</button>
+      </div>
+    </form>
+
+    <h1 class="text-center mt-4">員工資料</h1>
+    <table class="table mt-3">
+      <thead>
+        <tr>
+          <th>員工編號</th>
+          <th>姓名</th>
+          <th>年齡</th>
+          <th>性別</th>
+          <th>薪資</th>
+          <th>居住地區</th>
+          <th>刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 引入 Bootstrap JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const uname = document.querySelector('.uname')
+    const age = document.querySelector('.age')
+    const gender = document.querySelector('.gender')
+    const salary = document.querySelector('.salary')
+    const city = document.querySelector('.city')
+    const add = document.querySelector('.add')
+    const tbody = document.querySelector('tbody')
+    const arr = []
+    const info = document.querySelector('.info')
+    const items = document.querySelectorAll('[name]')
+
+
+    info.addEventListener('submit', function(e){
+      e.preventDefault()
+
+      for (let i = 0; i < items.length; i++){
+        if(items[i].value === ''){
+          return alert('X')
+        }
+      }
+
+      const obj = {
+        stuId : arr.length + 1,
+        uname : uname.value,
+        age : age.value,
+        gender : gender.value,
+        salary : salary.value,
+        city : city.value,
+      }
+      arr.push(obj)
+      console.log(arr);
+      render ()
+    })
+
+
+    function render (){
+      tbody.innerHTML = ''
+      for (let i = 0 ; i< arr.length ; i++){
+        const tr = document.createElement('tr')
+        
+        tr.innerHTML = `
+            <td>${arr[i].stuId}</td>
+            <td>${arr[i].uname}</td>
+            <td>${arr[i].age}</td>
+            <td>${arr[i].gender}</td>
+            <td>${arr[i].salary}</td>
+            <td>${arr[i].city}</td>
+            <td>
+              <a href="javascript:" data-id=${i}>删除</a>
+            </td>      
+        `
+        tbody.appendChild(tr)
+      }
+    }  
+
+    tbody.addEventListener('click', function(e){
+      console.log(e);
+      if (e.target.tagName === 'A') {
+        arr.splice(e.target.dataset.id, 1)
+      }
+      render()
+    })
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .box {
+            width: 600px;
+            margin: 50px auto;
+            display: flex;
+            font-size: 25px;
+            line-height: 40px;
+        }
+
+        .qs {
+
+            width: 450px;
+            height: 40px;
+            color: red;
+
+        }
+
+        .btns {
+            text-align: center;
+        }
+
+        .btns button {
+            width: 120px;
+            height: 35px;
+            margin: 0 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>熱火VS金塊</h2>
+    <div class="box">
+        <span>勝方：</span>
+        <div class="qs">team</div>
+    </div>
+    <div class="btns">
+        <button class="start">開始</button>
+        <button class="end">結束</button>
+    </div>
+
+    <script>
+        const arr = ['熱火+5', '熱火+10', '熱火+15', '熱火+20', '金塊+5', '金塊+10', '金塊+15', '金塊+20']
+        let timerId = 0
+        let random = 0
+        const qs = document.querySelector('.qs')
+        const start = document.querySelector('.start')
+        start.addEventListener('click', function () {
+            timerId = setInterval(function () {
+                random = parseInt(Math.random() * arr.length)
+                qs.innerHTML = arr[random]
+            }, 35)
+            if (arr.length === 1) {
+                start.disabled = end.disabled = true
+            }
+        })
+
+        const end = document.querySelector('.end')
+        end.addEventListener('click', function () {
+            clearInterval(timerId)
+            arr.splice(random, 1)
+            console.log(arr)
+        })
+    </script>
+</body>
+
+</html>
